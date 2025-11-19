@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"><title>Lista de Tarefas Dinâmica</title>
+<script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+<body>
+<h1>Minha Lista de Tarefas</h1>
+<table><tbody id="tabela-tarefas">
+<tr th:each="tarefa : ${tarefas}" 
+    th:replace="~{fragments :: linha-tarefa(tarefa=${tarefa})}"></tr>
+</tbody></table>
+<form hx-post="/tarefas" hx-target="#tabela-tarefas" hx-swap="beforeend"
+      hx-on::after-request="this.reset()">
+<input type="text" name="titulo" placeholder="O que precisa ser feito?" required>
+<button type="submit">Adicionar</button>
+</form>
+</body></html>
